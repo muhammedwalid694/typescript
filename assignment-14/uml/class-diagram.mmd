@@ -1,0 +1,46 @@
+classDiagram
+direction LR
+class User {
+  +number id
+  +string name
+  +string email
+  -string password
+  #string phone
+  #number age
+  #NoteBook[] notebooks
+  +displayInfo() void
+  +checkPassword(input) boolean
+  +addNotebook(notebook) void
+  +getNotebooks() NoteBook[]
+}
+class Admin {
+  +manageNotes(notebook, noteId) void
+  +displayInfo() void
+}
+class NoteBook {
+  +number id
+  +string title
+  -Note[] notes
+  -number nextNoteId
+  +addNote(title, content, author) Note
+  +removeNote(noteId) boolean
+  +getNotes() Note[]
+}
+class Note {
+  +number id
+  +string title
+  +string content
+  +number userId
+  +User author
+  +preview(length) string
+}
+class Storage~T~ {
+  -T[] items
+  +addItem(item) void
+  +removeItem(item) boolean
+  +getAllItems() T[]
+}
+User <|-- Admin : Inheritance
+NoteBook *-- Note : Composition
+User o-- NoteBook : Aggregation
+Note --> User : Association (author)
